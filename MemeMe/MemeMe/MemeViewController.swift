@@ -105,30 +105,22 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func setAttributedStringValue() -> [String : AnyObject] {
+    func setTextField(textField: UITextField, placeholderTxt: String) {
         
         let memeTextAttributes = [
             NSStrokeColorAttributeName : UIColor .whiteColor(),
-            NSForegroundColorAttributeName : UIColor .brownColor(),
+            NSForegroundColorAttributeName : UIColor .blackColor(),
             NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
             NSStrokeWidthAttributeName : -4.0
         ]
         
-        return memeTextAttributes
+        textField.text = placeholderTxt
+        textField.defaultTextAttributes = memeTextAttributes
+        textField.textAlignment = .Center
+        textField.delegate = self
         
     }
     
-    // set placeholder for textfield
-    func setPlaceHolderAttributedStringValue(placeholderTxt: String) -> NSAttributedString {
-        let placeholder = NSAttributedString(string: placeholderTxt, attributes: [
-            NSForegroundColorAttributeName : UIColor.whiteColor(),
-            NSStrokeColorAttributeName : UIColor.blackColor(),
-            NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-            NSStrokeWidthAttributeName : -4.0]
-        )
-        return placeholder
-    }
-
     func setToInitialState() {
     
         shareButton.enabled = false
@@ -136,21 +128,21 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         imagePickView.image = nil
         
         //Set Text Properties
-        let memeTextAttributes = setAttributedStringValue()
-        
-        //Set Placeholder attributes
-        let topPlaceHolderColor = setPlaceHolderAttributedStringValue("TOP")
-        let bottomPlaceHolderColor = setPlaceHolderAttributedStringValue("BOTTOM")
-        
-        //Set Text Attributes
-        topTextField.defaultTextAttributes = memeTextAttributes
-        bottomTextField.defaultTextAttributes = memeTextAttributes
-        
-        topTextField.attributedPlaceholder = topPlaceHolderColor
-        bottomTextField.attributedPlaceholder = bottomPlaceHolderColor
-        
-        topTextField.textAlignment = .Center
-        bottomTextField.textAlignment = .Center
+//        let memeTextAttributes =
+//        
+//        //Set Placeholder attributes
+//        let topPlaceHolderColor = setPlaceHolderAttributedStringValue("TOP")
+//        let bottomPlaceHolderColor = setPlaceHolderAttributedStringValue("BOTTOM")
+//        
+//        //Set Text Attributes
+//        topTextField.defaultTextAttributes = memeTextAttributes
+//        bottomTextField.defaultTextAttributes = memeTextAttributes
+//        
+//        topTextField.attributedPlaceholder = topPlaceHolderColor
+//        bottomTextField.attributedPlaceholder = bottomPlaceHolderColor
+//        
+//        topTextField.textAlignment = .Center
+//        bottomTextField.textAlignment = .Center
         
     }
     
@@ -170,14 +162,10 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     func textFieldDidEndEditing(textField: UITextField) {
         if (textField.text == "") {
             if (textField.tag == 1) {
-                textField.defaultTextAttributes = setAttributedStringValue()
-                textField.attributedPlaceholder = setPlaceHolderAttributedStringValue("BOTTOM")
-                textField.textAlignment = .Center
+                setTextField(textField, placeholderTxt: "BOTTOM")
             }
             else if (textField.tag == 2) {
-                textField.defaultTextAttributes = setAttributedStringValue()
-                textField.attributedPlaceholder = setPlaceHolderAttributedStringValue("TOP")
-                textField.textAlignment = .Center
+                setTextField(textField, placeholderTxt: "TOP")
             }
             else {
                 print("INVALID TAG SUPPLIED \(textField.tag)")
@@ -187,17 +175,12 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     func subscribeToKeyboardNotifications() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MemeViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MemeViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     func keyboardWillShow(notification: NSNotification) {
         if bottomTextField.isFirstResponder() {
             self.view.frame.origin.y -= getKeyboardHeight(notification)
-        }
-        if getKeyboardHeight(notification) != priorKeyboardHeight && priorKeyboardHeight != -0.0 {
-            if getKeyboardHeight(notification) != priorKeyboardHeight {
-                view.frame.origin.y += getKeyboardHeight(notification)
-            }
-            priorKeyboardHeight = getKeyboardHeight(notification)
         }
     }
     
@@ -217,7 +200,6 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     // pragma mark - Notifications
     func subscribeKeyboardNotifications() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MemeViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MemeViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     func unsubscribeKeyboardNotifications() {
@@ -236,7 +218,7 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         toolBar.hidden = true
         
         // render view to an image
-        UIGraphicsBeginImageContext(self.view.frame.size)
+        UIGraphicsBeginImageContext(view.frame.size)
         view.drawViewHierarchyInRect(self.view.frame, afterScreenUpdates: true)
         let memedImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -247,11 +229,5 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         return memedImage
     }
-
-    
-    
-    
-    
-    
 
 }
