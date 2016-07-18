@@ -110,7 +110,7 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let memeTextAttributes = [
             NSStrokeColorAttributeName : UIColor .whiteColor(),
             NSForegroundColorAttributeName : UIColor .brownColor(),
-            NSFontAttributeName : UIFont(name: "HelveticanNeue-CondensedBlack", size: 40)!,
+            NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
             NSStrokeWidthAttributeName : -4.0
         ]
         
@@ -123,7 +123,7 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let placeholder = NSAttributedString(string: placeholderTxt, attributes: [
             NSForegroundColorAttributeName : UIColor.whiteColor(),
             NSStrokeColorAttributeName : UIColor.blackColor(),
-            NSFontAttributeName : UIFont(name: "HelveticanNeue-CondensedBlack", size: 40)!,
+            NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
             NSStrokeWidthAttributeName : -4.0]
         )
         return placeholder
