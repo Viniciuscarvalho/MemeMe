@@ -55,6 +55,8 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         super.viewDidLoad()
         topTextField.delegate = self
         bottomTextField.delegate = self
+        setTextField(topTextField, placeholderTxt: "TOP")
+        setTextField(bottomTextField, placeholderTxt: "BOTTOM")
         setToInitialState()
     }
     
@@ -108,8 +110,8 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     func setTextField(textField: UITextField, placeholderTxt: String) {
         
         let memeTextAttributes = [
-            NSStrokeColorAttributeName : UIColor .whiteColor(),
-            NSForegroundColorAttributeName : UIColor .blackColor(),
+            NSStrokeColorAttributeName : UIColor .blackColor(),
+            NSForegroundColorAttributeName : UIColor .whiteColor(),
             NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
             NSStrokeWidthAttributeName : -4.0
         ]
@@ -126,23 +128,6 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         shareButton.enabled = false
         memeView.backgroundColor = UIColor.blackColor()
         imagePickView.image = nil
-        
-        //Set Text Properties
-//        let memeTextAttributes =
-//        
-//        //Set Placeholder attributes
-//        let topPlaceHolderColor = setPlaceHolderAttributedStringValue("TOP")
-//        let bottomPlaceHolderColor = setPlaceHolderAttributedStringValue("BOTTOM")
-//        
-//        //Set Text Attributes
-//        topTextField.defaultTextAttributes = memeTextAttributes
-//        bottomTextField.defaultTextAttributes = memeTextAttributes
-//        
-//        topTextField.attributedPlaceholder = topPlaceHolderColor
-//        bottomTextField.attributedPlaceholder = bottomPlaceHolderColor
-//        
-//        topTextField.textAlignment = .Center
-//        bottomTextField.textAlignment = .Center
         
     }
     
