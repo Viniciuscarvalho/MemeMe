@@ -88,7 +88,6 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         presentImagePickerView(.PhotoLibrary)
     }
     
-    
     func presentImagePickerView(sourceType: UIImagePickerControllerSourceType) {
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
