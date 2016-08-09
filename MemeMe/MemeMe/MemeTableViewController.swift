@@ -6,6 +6,7 @@
 //  Copyright © 2016 Vinicius Carvalho. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
 class MemeTableViewController: UITableViewController {
@@ -34,7 +35,7 @@ class MemeTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("MemeTableViewCell")
         let meme = memes[indexPath.row]
         
-        cell?.textLabel?.text = meme.topTextField + "..." + meme.bottomTextField
+        cell?.textLabel?.text = meme.topTextField! + "..." + meme.bottomTextField!
         cell?.imageView?.image = meme.memedImage
         
         return cell!

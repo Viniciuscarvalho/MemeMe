@@ -11,7 +11,7 @@ import Foundation
 
 class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
-    var memes: [Meme]!
+    var memes: Meme!
     
     @IBOutlet weak var memeView: UIView!
     @IBOutlet weak var imagePickView: UIImageView!
