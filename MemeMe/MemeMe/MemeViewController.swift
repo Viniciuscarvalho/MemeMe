@@ -9,6 +9,7 @@
 import UIKit
 import Foundation
 
+
 class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
     var memes: Meme!
@@ -41,11 +42,7 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         controller.completionWithItemsHandler = {
             (activityType, completed: Bool, returnedItems: [AnyObject]?, error: NSError? ) in
             // return if cancelled
-            if (!completed) {
-                return
-            } else {
-                self.save(image)
-            }
+            if (!completed) { self.save(image) }
             self.dismissViewControllerAnimated(true, completion: nil)
         }
     }
@@ -164,7 +161,7 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     func keyboardWillShow(notification: NSNotification) {
         if bottomTextField.isFirstResponder() {
-            self.view.frame.origin.y -= getKeyboardHeight(notification)
+            view.frame.origin.y -= getKeyboardHeight(notification)
         }
     }
     
@@ -193,7 +190,11 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     // pragma mark - Create Meme Object
     func save(memedImage: UIImage) {
-        _ = Meme(topTextField: topTextField.text, bottomTextField: bottomTextField.text, image: imagePickView.image!, memedImage: memedImage)
+        let meme = Meme(topTextField: topTextField.text, bottomTextField: bottomTextField.text, image: imagePickView.image!, memedImage: memedImage)
+        
+        let object = UIApplication.sharedApplication().delegate
+        let appDelegate = object as! AppDelegate
+        appDelegate.memes.append(meme)
     }
     
     func generateMemedImage() -> UIImage {
