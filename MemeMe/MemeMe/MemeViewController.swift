@@ -42,7 +42,7 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         controller.completionWithItemsHandler = {
             (activityType, completed: Bool, returnedItems: [AnyObject]?, error: NSError? ) in
             // return if cancelled
-            if (!completed) { self.save(image) }
+            if (completed) { self.save(image) }
             self.dismissViewControllerAnimated(true, completion: nil)
         }
     }
@@ -161,7 +161,7 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     func keyboardWillShow(notification: NSNotification) {
         if bottomTextField.isFirstResponder() {
-            view.frame.origin.y -= getKeyboardHeight(notification)
+            view.frame.origin.y = getKeyboardHeight(notification) * (-1)
         }
     }
     
