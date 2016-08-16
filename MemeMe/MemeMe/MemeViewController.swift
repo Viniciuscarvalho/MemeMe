@@ -12,7 +12,7 @@ import Foundation
 
 class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
-    var memes: Meme!
+    var meme: Meme!
     
     @IBOutlet weak var memeView: UIView!
     @IBOutlet weak var imagePickView: UIImageView!
@@ -89,7 +89,6 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
         imagePickerController.sourceType = sourceType
-        imagePickerController.allowsEditing = true
         presentViewController(imagePickerController, animated: true, completion: nil)
     }
     

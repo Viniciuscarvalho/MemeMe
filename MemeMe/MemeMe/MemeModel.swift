@@ -16,11 +16,4 @@ struct Meme {
     var image: UIImage?
     var memedImage: UIImage?
     
-    func save() {
-    
-        let object = UIApplication.sharedApplication().delegate
-        let appDelegate = object as! AppDelegate
-        appDelegate.memes.append(self)
-    }
-    
 }
